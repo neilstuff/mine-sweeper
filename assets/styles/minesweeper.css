@@ -63,6 +63,7 @@ $value in $cellColors {
 
 .cell.flagged {
     font-family: "FontAwesome";
+    background-color: #059d07;
     &:after {
         content: '\f024';
     }
