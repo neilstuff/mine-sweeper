@@ -215,6 +215,9 @@ class Minesweeper {
 
     //flag a cell
     flagCell(cell) {
+
+        console.log("flag cell");
+
         if (!cell.isRevealed && this.playing) {
             const cellElement = cell.getElement(),
                 mineCount = document.getElementById("mine_count");
@@ -359,6 +362,7 @@ window.onload = function() {
         .getElementById("game_container")
         .addEventListener("contextmenu", function(e) {
             e.preventDefault();
+
             const target = e.target;
 
             if (target.classList.contains("cell")) {
