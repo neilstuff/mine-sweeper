@@ -379,20 +379,9 @@ window.onload = function() {
             }
         });
 
-    //attach click to cheat button
-    document.getElementById("cheat_button").addEventListener("click", function() {
-        console.log(game.gridToString());
-    });
-
-    //attach click to validate button
-    document
-        .getElementById("validate_button")
-        .addEventListener("click", function() {
-            game.validate();
-        });
-
     //create a game
     newGame();
+
 };
 
 //global vars
