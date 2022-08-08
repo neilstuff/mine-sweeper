@@ -207,12 +207,15 @@ class Minesweeper {
                 document.getElementById("game_status").style.color = "#EE0000";
                 document.getElementById("new_game_button").innerHTML = "&#128534;";
             } else if (!cell.isFlagged && cell.value == 0) {
+
                 //if the clicked cell has 0 adjacent mines, we need to recurse to clear out all adjacent 0 cells
                 const adjCells = this.getAdjacentCells(cell.ypos, cell.xpos);
-                for (let i = 0, len = adjCells.length; i < len; i++) {
-                    this.revealCell(adjCells[i]);
+                for (let iCell = 0, len = adjCells.length; iCell < len; iCell++) {
+                    this.revealCell(adjCells[iCell]);
                 }
+
             }
+
         }
     }
 
@@ -257,6 +260,9 @@ class Minesweeper {
             this.playing = false;
             gameStatus.textContent = this.status_msg;
             gameStatus.style.color = "#00CC00";
+
+            document.getElementById("new_game_button").innerHTML = "&#128526;";
+
         } else {
             this.status_msg = "Sorry, you lost!";
             this.playing = false;
@@ -343,44 +349,57 @@ window.onload = function() {
     //attach click event to cells - left click to reveal
     document
         .getElementById("game_container")
-        .addEventListener("click", function(e) {
-            const target = e.target;
-
-            if (target.classList.contains("cell")) {
-                const cell =
-                    game.grid[target.getAttribute("data-ypos")][
-                        target.getAttribute("data-xpos")
-                    ];
-
-                if (!cell.isRevealed && game.playing) {
-                    game.movesMade++;
-                    document.getElementById("moves_made").textContent = game.movesMade;
-                    game.revealCell(cell);
-                    game.save();
-                }
+        .addEventListener("mousedown", function(e) {
+            if (e.button == 0) {
+                document.getElementById("new_game_button").innerHTML = "&#128562;";
             }
+            if (e.button == 2) {
+                document.getElementById("new_game_button").innerHTML = "&#128556;";
+            }
+
         });
 
-    //right click to flag
+    //attach click event to cells - left click to reveal
     document
         .getElementById("game_container")
-        .addEventListener("contextmenu", function(e) {
-            e.preventDefault();
+        .addEventListener("mouseup", function(e) {
 
-            const target = e.target;
+            document.getElementById("new_game_button").innerHTML = "&#128512;";
 
-            if (target.classList.contains("cell")) {
-                const cell =
-                    game.grid[target.getAttribute("data-ypos")][
-                        target.getAttribute("data-xpos")
-                    ];
-                if (!cell.isRevealed && game.playing) {
-                    game.movesMade++;
-                    document.getElementById("moves_made").textContent = game.movesMade;
-                    game.flagCell(cell);
-                    game.save();
+            if (e.button == 0) {
+                const target = e.target;
+
+                if (target.classList.contains("cell")) {
+                    const cell =
+                        game.grid[target.getAttribute("data-ypos")][
+                            target.getAttribute("data-xpos")
+                        ];
+
+                    if (!cell.isRevealed && game.playing) {
+                        game.movesMade++;
+                        document.getElementById("moves_made").textContent = game.movesMade;
+                        game.revealCell(cell);
+                        game.save();
+                    }
+                }
+
+            } else if (e.button == 2) {
+                const target = e.target;
+
+                if (target.classList.contains("cell")) {
+                    const cell =
+                        game.grid[target.getAttribute("data-ypos")][
+                            target.getAttribute("data-xpos")
+                        ];
+                    if (!cell.isRevealed && game.playing) {
+                        game.movesMade++;
+                        document.getElementById("moves_made").textContent = game.movesMade;
+                        game.flagCell(cell);
+                        game.save();
+                    }
                 }
             }
+
         });
 
     //create a game
