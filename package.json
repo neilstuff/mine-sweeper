@@ -10,20 +10,18 @@
     },
     "build": {
         "win": {
-            "target": [
-                {
-                    "target": "nsis",
-                    "arch": [
-                        "x64",
-                        "ia32"
-                    ]
-                }
-            ]
+            "target": [{
+                "target": "nsis",
+                "arch": [
+                    "x64",
+                    "ia32"
+                ]
+            }]
         }
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/thesourorange/neilstuff/snake.git"
+        "url": "git+https://github.com/thesourorange/neilstuff/mine-sweeper.git"
     },
     "keywords": [
         "Electron",

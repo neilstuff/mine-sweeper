@@ -17,6 +17,8 @@ class Minesweeper {
             this.loadGame = true;
         }
 
+        document.getElementById("new_game_button").innerHTML = "&#128512";
+
         Object.assign(
             this, {
                 grid: [], //will hold an array of Cell objects
@@ -203,6 +205,7 @@ class Minesweeper {
                 this.playing = false;
                 document.getElementById("game_status").textContent = this.status_msg;
                 document.getElementById("game_status").style.color = "#EE0000";
+                document.getElementById("new_game_button").innerHTML = "&#128534;";
             } else if (!cell.isFlagged && cell.value == 0) {
                 //if the clicked cell has 0 adjacent mines, we need to recurse to clear out all adjacent 0 cells
                 const adjCells = this.getAdjacentCells(cell.ypos, cell.xpos);
@@ -259,6 +262,7 @@ class Minesweeper {
             this.playing = false;
             gameStatus.textContent = this.status_msg;
             gameStatus.style.color = "#EE0000";
+            document.getElementById("new_game_button").innerHTML = "&#128534;";
         }
         this.save();
     }
