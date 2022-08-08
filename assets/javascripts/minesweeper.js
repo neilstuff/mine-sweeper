@@ -332,7 +332,7 @@ window.onload = function() {
     //attack click to new game button
     document
         .getElementById("new_game_button")
-        .addEventListener("click", function() {
+        .addEventListener("dblclick", function() {
             const opts = {
                 rows: parseInt(document.getElementById("new_rows").value, 10),
                 cols: parseInt(document.getElementById("new_cols").value, 10),
@@ -345,6 +345,31 @@ window.onload = function() {
 
             newGame(opts);
         });
+
+    document
+        .getElementById("new_game_button")
+        .addEventListener("click", function() {
+
+            if (game.playing) {
+                game.validate();
+            } else {
+                const opts = {
+                    rows: parseInt(document.getElementById("new_rows").value, 10),
+                    cols: parseInt(document.getElementById("new_cols").value, 10),
+                    mines: parseInt(document.getElementById("new_mines").value, 10)
+                };
+    
+                if (hasLocalStorage) {
+                    localStorage.clear();
+                }
+    
+                game.playing = true;
+
+                newGame(opts);
+                   
+            }
+ 
+    });
 
     //attach click event to cells - left click to reveal
     document
