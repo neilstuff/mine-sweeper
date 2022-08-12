@@ -1,6 +1,6 @@
 /*
 	Minesweeper.js
-	Author: Brian Glaz
+	Author: Brian Glaz & Neil Brittliff
 	
 	Desccription:
 		Javascript implementation of the classic game, Minesweeper	
@@ -251,6 +251,21 @@ class Minesweeper {
         }
     }
 
+    check() {
+
+        if (this.minesFound === this.options.mines && this.falseMines === 0) {
+            this.status_msg = "You won!!";
+            this.playing = false;
+            gameStatus.textContent = this.status_msg;
+            gameStatus.style.color = "#00CC00";
+
+            document.getElementById("new_game_button").innerHTML = "&#128526;";
+        } else {
+            this.status_msg = "More to go..";
+        }
+
+    }
+
     //check if player has won the game
     validate() {
         const gameStatus = document.getElementById("game_status");
@@ -351,7 +366,7 @@ window.onload = function() {
         .addEventListener("click", function() {
 
             if (game.playing) {
-                game.validate();
+                game.check();
             } else {
                 const opts = {
                     rows: parseInt(document.getElementById("new_rows").value, 10),
@@ -375,6 +390,11 @@ window.onload = function() {
     document
         .getElementById("game_container")
         .addEventListener("mousedown", function(e) {
+
+            if (!game.playing) {
+                return;
+            }
+
             if (e.button == 0) {
                 document.getElementById("new_game_button").innerHTML = "&#128562;";
             }
@@ -389,6 +409,10 @@ window.onload = function() {
         .getElementById("game_container")
         .addEventListener("mouseup", function(e) {
 
+            if (!game.playing) {
+                return;
+            }
+            
             document.getElementById("new_game_button").innerHTML = "&#128512;";
 
             if (e.button == 0) {
