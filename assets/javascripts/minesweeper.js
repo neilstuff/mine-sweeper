@@ -226,6 +226,8 @@ class Minesweeper {
                 document.getElementById("game_status").textContent = this.status_msg;
                 document.getElementById("game_status").style.color = "#EE0000";
                 document.getElementById("new_game_button").innerHTML = "&#128534;";
+
+                // You could be a winner
             } else if (!cell.isFlagged && cell.value == 0) {
 
                 //if the clicked cell has 0 adjacent mines, we need to recurse to clear out all adjacent 0 cells
@@ -237,12 +239,11 @@ class Minesweeper {
             }
 
         }
+
     }
 
     //flag a cell
     flagCell(cell) {
-
-        console.log("flag cell");
 
         if (!cell.isRevealed && this.playing) {
             const cellElement = cell.getElement(),
@@ -266,46 +267,22 @@ class Minesweeper {
                     this.minesFound--;
                 } else {
                     this.falseMines--;
-                }
+                };
+
             }
-        }
-    }
 
-    check() {
+        }
 
         if (this.minesFound === this.options.mines && this.falseMines === 0) {
             this.status_msg = "You won!!";
             this.playing = false;
-            gameStatus.textContent = this.status_msg;
-            gameStatus.style.color = "#00CC00";
-
-            document.getElementById("new_game_button").innerHTML = "&#128526;";
-        } else {
-            this.status_msg = "More to go..";
-        }
-
-    }
-
-    //check if player has won the game
-    validate() {
-        const gameStatus = document.getElementById("game_status");
-
-        if (this.minesFound === this.options.mines && this.falseMines === 0) {
-            this.status_msg = "You won!!";
-            this.playing = false;
-            gameStatus.textContent = this.status_msg;
-            gameStatus.style.color = "#00CC00";
+            document.getElementById("game_status").textContent = this.status_msg;
+            document.getElementById("game_status").style.color = "#00FF00";
 
             document.getElementById("new_game_button").innerHTML = "&#128526;";
 
-        } else {
-            this.status_msg = "Sorry, you lost!";
-            this.playing = false;
-            gameStatus.textContent = this.status_msg;
-            gameStatus.style.color = "#EE0000";
-            document.getElementById("new_game_button").innerHTML = "&#128534;";
         }
-        this.save();
+
     }
 
     //debgugging function to print the grid to console
@@ -367,7 +344,7 @@ window.onload = function() {
     //attack click to new game button
     document
         .getElementById("new_game_button")
-        .addEventListener("dblclick", function() {
+        .addEventListener("click", function() {
             const opts = {
                 rows: parseInt(document.getElementById("new_rows").value, 10),
                 cols: parseInt(document.getElementById("new_cols").value, 10),
@@ -381,30 +358,6 @@ window.onload = function() {
             newGame(opts);
         });
 
-    document
-        .getElementById("new_game_button")
-        .addEventListener("click", function() {
-
-            if (game.playing) {
-                game.check();
-            } else {
-                const opts = {
-                    rows: parseInt(document.getElementById("new_rows").value, 10),
-                    cols: parseInt(document.getElementById("new_cols").value, 10),
-                    mines: parseInt(document.getElementById("new_mines").value, 10)
-                };
-
-                if (hasLocalStorage) {
-                    localStorage.clear();
-                }
-
-                game.playing = true;
-
-                newGame(opts);
-
-            }
-
-        });
 
     //attach click event to cells - left click to reveal
     document
