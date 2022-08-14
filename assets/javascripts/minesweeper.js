@@ -138,6 +138,26 @@ class Minesweeper {
 
         //clear old DOM
         gameContainer.innerHTML = "";
+        let width = 35;
+        let height = 32;
+        let fontsize = 19;
+        let padding = "10px 5px 5px 5px";
+
+        if (this.options.cols <= 8 && this.options.rows <= 8) {
+            padding = "18px 9px 9px 9px";
+            height = 34;
+            width = 39;
+            fontsize = 20;
+        } else if (this.options.cols <= 12 && this.options.rows <= 12) {
+            height = 25;
+            width = 35;
+            fontsize = 14;
+        } else {
+            let padding = "4px 1px 1px 1px";
+            height = 16;
+            width = 18;
+            fontsize = 10;
+        }
 
         let content = "";
         for (let r = 0; r < this.options.rows; r++) {
@@ -153,9 +173,9 @@ class Minesweeper {
                 } else if (cellObj.isRevealed) {
                     add_class = `revealed adj-${cellObj.value}`;
                     txt = (!cellObj.isMine ? cellObj.value || "" : "");
-                }
+                };
 
-                content += `<div class="cell ${add_class}" data-xpos="${c}" data-ypos="${r}">${txt}</div>`;
+                content += `<div class="cell ${add_class}" style="width:${width}px; height:${height}px; font-size:${fontsize}px; padding:${padding};" data-xpos="${c}" data-ypos="${r}">${txt}</div>`;
             }
             content += "</div>";
         }
@@ -373,18 +393,18 @@ window.onload = function() {
                     cols: parseInt(document.getElementById("new_cols").value, 10),
                     mines: parseInt(document.getElementById("new_mines").value, 10)
                 };
-    
+
                 if (hasLocalStorage) {
                     localStorage.clear();
                 }
-    
+
                 game.playing = true;
 
                 newGame(opts);
-                   
+
             }
- 
-    });
+
+        });
 
     //attach click event to cells - left click to reveal
     document
@@ -412,7 +432,7 @@ window.onload = function() {
             if (!game.playing) {
                 return;
             }
-            
+
             document.getElementById("new_game_button").innerHTML = "&#128512;";
 
             if (e.button == 0) {

@@ -10,14 +10,10 @@
 }
 
 .cell {
-    width: 35px;
-    height: 25px;
     border: 1px solid #CCC;
-    padding: 10px 5px 5px 5px;
     background-color: #EEE;
-    font-size: 14px;
-    text-align: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
     box-shadow: inset 5px 5px 10px #FFF, inset -3px -3px 5px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition-property: background-color, box-shadow;
@@ -39,14 +35,6 @@
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-}
-
-$cellColors: ( 1: 'blue', 2: 'green', 3: 'red', 4: 'purple', 5: 'maroon', 6: 'turquoise', 7: 'black', 8: 'white');
-@each $name,
-$value in $cellColors {
-    .cell.adj-#{$name} {
-        color: #{$value};
-    }
 }
 
 .cell.adj-M {
@@ -74,7 +62,9 @@ $value in $cellColors {
 }
 
 .status_msg {
-    margin-bottom: 10px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
 }
 
 input[type="number"] {
